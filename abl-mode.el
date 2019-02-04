@@ -52,7 +52,9 @@
 	"lookup" "add-new-index" "add-new-field" "break by" "question" "yes-no"
 	"yes-no-cancel" "buttons" "quoter" "query-prepare" "query-open" "set-buffers"
 	"view" "object" "this-procedure" "persistent" "through" "set" "descending"
-	"os-dir" "case-sensitive" "first-of" "last-of" "colon" "os-command" "silent"))
+	"os-dir" "case-sensitive" "first-of" "last-of" "colon" "os-command" "silent"
+	"shared" "os-create-dir" "file-name" "full-pathname" "os-getenv"
+	"os-delete" "warning" "button" ))
 
 (defvar abl-type-list
   '("char" "character" "int" "integer" "format" "var" "variable" "log" "logical"
@@ -74,22 +76,18 @@
 
 ;;;; Highlighting
 (defvar abl-keyword-regexp
-  (regexp-opt (mapcar 'upcase abl-keyword-list) 'words))
-
-(defvar abl-string-regexp
-  (rx (and "\""
-		   (zero-or-more
-			(or (not (any "~\""))
-				"\n"))
-		   "\"")))
+  (regexp-opt (append
+	       abl-keyword-list
+	       (mapcar 'upcase abl-keyword-list)) 'words))
 
 (defvar abl-type-regexp
-  (regexp-opt (mapcar 'upcase abl-type-list) 'words))
+  (regexp-opt (append
+	       abl-type-list
+	       (mapcar 'upcase abl-type-list)) 'words))
 
 (defvar abl-font-lock-defaults
   `((,abl-keyword-regexp . (1 font-lock-builtin-face))
-	(,abl-type-regexp . (1 font-lock-type-face))
-	(,abl-string-regexp . (1 font-lock-string-face))))
+	(,abl-type-regexp . (1 font-lock-type-face))))
 
 
 ;;;; Syntax
@@ -100,6 +98,8 @@
 	(modify-syntax-entry ?_ "w" st)
 	(modify-syntax-entry ?/ ". 14n" st)
 	(modify-syntax-entry ?* ". 23n" st)
+	(modify-syntax-entry ?\\ "w" st)
+	(modify-syntax-entry ?\" "\"" st)
 	(modify-syntax-entry ?~ "\\" st)
 	(modify-syntax-entry ?= "w" st) ; = can be a word (For navigation)
 	st))
