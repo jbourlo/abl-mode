@@ -246,4 +246,7 @@ definition."
   set (make-local-variable 'tab-stop-list) (number-sequence 0 200 4))
 
 (add-to-list 'auto-mode-alist '("\\.p\\'" . abl-mode))
+(add-to-list 'auto-mode-alist '("\\.cls\\'" . abl-mode))
+(add-to-list 'auto-mode-alist '("\\.i\\'" . abl-mode))
+(add-to-list 'auto-mode-alist '("\\.w\\'" . abl-mode))
 (provide 'abl-mode)
